@@ -10,9 +10,9 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/vegetables")
+@RequestMapping("/vegetable")
 public class VegetableController {
-    private final VegetableService vegetableService;
+    private VegetableService vegetableService;
     @GetMapping("/desc")
     public VegetableResponse sortByPriceDesc(){
         VegetableResponse vegetableResponse = new VegetableResponse("Vegetables are sorted by price descending!",vegetableService.sortByPriceDesc());

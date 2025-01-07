@@ -1,33 +1,32 @@
 package com.workintech.s18d2.services;
 
-import com.workintech.s18d2.dao.FruitRepository;
+import com.workintech.s18d2.exceptions.PlantException;
+import com.workintech.s18d2.repository.FruitRepository;
 import com.workintech.s18d2.entity.Fruit;
-import com.workintech.s18d2.exceptions.FruitException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 @AllArgsConstructor
 @Service
 
 public class FruitServiceImpl implements FruitService{
     private FruitRepository fruitRepository;
     @Override
-    public List<Fruit> sortByPriceDesc() {
-        return fruitRepository.sortByPriceDesc();
+    public List<Fruit> getByPriceDesc() {
+        return fruitRepository.getByPriceDesc();
     }
 
     @Override
-    public List<Fruit> sortByPriceAsc() {
-        return fruitRepository.sortByPriceAsc();
+    public List<Fruit> getByPriceAsc() {
+        return fruitRepository.getByPriceAsc();
     }
 
     @Override
-    public Fruit findById(Long id) {
-    return fruitRepository.findById(id).orElseThrow(()-> new FruitException("This fruit is not exist" + " " + id, HttpStatus.NOT_FOUND));
+    public Fruit getById(Long id) {
+    return fruitRepository.findById(id).orElseThrow(()-> new PlantException("This fruit is not exist" + " " + id, HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -37,13 +36,13 @@ public class FruitServiceImpl implements FruitService{
 
     @Override
     public Fruit delete(Long id) {
-       Fruit fruit = findById(id);
+       Fruit fruit = getById(id);
        fruitRepository.delete(fruit);
        return fruit;
     }
 
     @Override
-    public List<Fruit> findByParam(String param) {
-        return fruitRepository.findByParam(param);
+    public List<Fruit> searchByName(String name) {
+        return fruitRepository.searchByName(name);
     }
 }

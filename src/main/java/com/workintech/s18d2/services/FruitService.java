@@ -6,12 +6,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FruitService {
-    List<Fruit> sortByPriceDesc();
-    List<Fruit> sortByPriceAsc();
-    Fruit findById(Long id);
+    List<Fruit> getByPriceDesc();
+    List<Fruit> getByPriceAsc();
+    Fruit getById(Long id);
     Fruit save(Fruit fruit);
     Fruit delete(Long id);
-    List<Fruit> findByParam(String param);
+    List<Fruit> searchByName(String name);
 
 
 }

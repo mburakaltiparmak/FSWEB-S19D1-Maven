@@ -1,7 +1,5 @@
 package com.workintech.s18d2.exceptions;
 
-import com.workintech.s18d2.exceptions.ErrorResponse;
-import com.workintech.s18d2.exceptions.FruitException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,30 +13,20 @@ import java.time.LocalDateTime;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<ErrorResponse> handleFruitException(FruitException ex) {
-        ErrorResponse response = new ErrorResponse(
+    public ResponseEntity<PlantErrorResponse> handleException(PlantException ex) {
+        PlantErrorResponse response = new PlantErrorResponse(
                 ex.getHttpStatus().value(),
                 ex.getMessage(),
                 LocalDateTime.now()
         );
-        log.error("Fruit error occurred: {}", response);
+        log.error("Plant error occurred: {}", response);
         return new ResponseEntity<>(response, ex.getHttpStatus());
     }
 
-    @ExceptionHandler
-    public ResponseEntity<ErrorResponse> handleVegetableException(VegetableException ex) {
-        ErrorResponse response = new ErrorResponse(
-                ex.getHttpStatus().value(),
-                ex.getMessage(),
-                LocalDateTime.now()
-        );
-        log.error("Vegetable error occurred: {}", response);
-        return new ResponseEntity<>(response, ex.getHttpStatus());
-    }
 
     @ExceptionHandler
-    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
-        ErrorResponse response = new ErrorResponse(
+    public ResponseEntity<PlantErrorResponse> handleException(Exception ex) {
+        PlantErrorResponse response = new PlantErrorResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 ex.getMessage(),
                 LocalDateTime.now()
